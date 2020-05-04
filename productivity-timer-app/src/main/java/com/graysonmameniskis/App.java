@@ -1,29 +1,22 @@
 package com.graysonmameniskis;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
+import javax.swing.*;
 
-/**
- * Hello world!
- *
- */
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
 
-        String os = System.getProperty("os.name").toLowerCase();
-        WebDriver driver = new ChromeDriver();
+        JFrame frame = new JFrame("TimerApp");
+        frame.setContentPane(new TimerApp().getPanelMain());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
 
-        if (os.contains("mac")) {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/chromedriver");
-        } else {
-            System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/chromedriver.exe");
-        }
-
-        driver.get("http://google.com");
-        driver.findElement(By.cssSelector("Body")).sendKeys(Keys.CONTROL + "t");
-        driver.get("https://info.umkc.edu/womenc/wp-content/uploads/2018/01/Timesup.jpg");
+//        NewTab newTab = new NewTab();
+//        if (newTab.isMinutesElapsed25()) {
+//            newTab.openNewTab();
+//        }
 
     }
 }
