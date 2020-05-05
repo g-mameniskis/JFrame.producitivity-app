@@ -7,20 +7,25 @@ import java.util.Date;
 
 public class TimerApp {
 
+    private JLabel lblTime;
+    private JButton startButton;
+    private JButton stopButton;
+    private JPanel panelMain;
+
     Timer timer = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Get the current time of the system
             Date currentTime = new Date();
+
             //Set this time to our label
             lblTime.setText(currentTime.toString());
+            //Get the timer's time
+            //MyTimer myTimer = new MyTimer();
+            //Set the timer's time to our label
+            //lblTime.setText(myTimer.getElapsedMinutes());
         }
     });
-    private JLabel lblTime;
-    private JButton startButton;
-    private JButton stopButton;
-    private JComboBox comboBox1;
-    private JPanel panelMain;
 
     public JPanel getPanelMain() {
         return panelMain;
