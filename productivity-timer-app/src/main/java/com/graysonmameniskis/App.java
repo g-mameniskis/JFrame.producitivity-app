@@ -2,12 +2,16 @@ package com.graysonmameniskis;
 
 import java.util.Scanner;
 import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class App
 {
 
-    final private int SECONDS_IN_MINUTE = 60;
-    public int MILLISECONDS_IN_SECOND = 1000;
+    private static final int SECONDS_IN_MINUTE = 60;
+    private static final int MILLISECONDS_IN_SECOND = 1000;
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main( String[] args )
@@ -26,14 +30,43 @@ public class App
         int cycleInput = scanner.nextInt();
         scanner.nextLine();
 
-        timer.schedule(myTimerTask, (durationInput * 1000), (breakInput * 1000));
-        try {
-            Thread.sleep((((durationInput * 1000) + (breakInput * 1000)) * (cycleInput)));
-        }catch (InterruptedException exc) {
+        // timer.schedule accepts three actual arguments:
+            // 1. Timer task object (inherits from TimerTask class)
+            // 2. duration of timer
+            // 3. duration of  break between timer executions
 
-        }
+        long timerDuration = durationInput * (MILLISECONDS_IN_SECOND);
+        long breakDuration = breakInput * (MILLISECONDS_IN_SECOND);
 
-        timer.cancel();
+//        for (int i = 0; i <= cycleInput; i++) {
+//            timer.scheduleAtFixedRate(myTimerTask, timerDuration, breakDuration);
+//
+//
+//            try {
+//                Thread.sleep((timerDuration + breakDuration));
+//            }catch (InterruptedException exc) {
+//
+//            }
+//        }
+
+        // Thread.sleep tells our program when to exit
+        // Takes one actual argument
+            // 1. Duration of thread's lifespan before timer program exits
+
+
+
+        //timer.cancel();
+
+
+
+
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        ScheduledFuture<?> future = scheduledExecutorService.scheduleAtFixedRate(myTimerTask, timerDuration, breakDuration, TimeUnit.SECONDS);
+        future.cancel(false);
+
+
+
+
 
 //        JFrame frame = new JFrame("TimerApp");
 //        frame.setContentPane(new TimerApp().getPanelMain());
