@@ -1,11 +1,7 @@
 package com.graysonmameniskis;
 
+import javax.swing.*;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 public class App
 {
@@ -17,26 +13,43 @@ public class App
     public static void main( String[] args )
     {
 
-        MyTimerTask myTimerTask = new MyTimerTask();
-        Timer timer = new Timer();
+        /**
+         * @param args
+         */
 
-        System.out.println("Enter duration of timer: ");
-        int durationInput = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter length of break: ");
-        int breakInput = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter the number of cycles to perform: ");
-        int cycleInput = scanner.nextInt();
-        scanner.nextLine();
+        SwingUtilities.invokeLater(new Runnable() {
 
-        // timer.schedule accepts three actual arguments:
-            // 1. Timer task object (inherits from TimerTask class)
-            // 2. duration of timer
-            // 3. duration of  break between timer executions
+            @Override
+            public void run() {
+                new MainFrame("SwingWorker Demo");
+            }
+        });
 
-        long timerDuration = durationInput * (MILLISECONDS_IN_SECOND);
-        long breakDuration = breakInput * (MILLISECONDS_IN_SECOND);
+
+//        MyTimerTask myTimerTask = new MyTimerTask();
+//        Timer timer = new Timer();
+//
+//        System.out.println("Enter duration of timer: ");
+//        int durationInput = scanner.nextInt();
+//        scanner.nextLine();
+//        System.out.println("Enter length of break: ");
+//        int breakInput = scanner.nextInt();
+//        scanner.nextLine();
+//        System.out.println("Enter the number of cycles to perform: ");
+//        int cycleInput = scanner.nextInt();
+//        scanner.nextLine();
+//
+//        // timer.schedule accepts three actual arguments:
+//            // 1. Timer task object (inherits from TimerTask class)
+//            // 2. duration of timer
+//            // 3. duration of  break between timer executions
+//
+//        long timerDuration = durationInput * (MILLISECONDS_IN_SECOND);
+//        long breakDuration = breakInput * (MILLISECONDS_IN_SECOND);
+
+
+
+
 
 //        for (int i = 0; i <= cycleInput; i++) {
 //            timer.scheduleAtFixedRate(myTimerTask, timerDuration, breakDuration);
@@ -60,9 +73,9 @@ public class App
 
 
 
-        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
-        ScheduledFuture<?> future = scheduledExecutorService.scheduleAtFixedRate(myTimerTask, timerDuration, breakDuration, TimeUnit.SECONDS);
-        future.cancel(false);
+//        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+//        ScheduledFuture<?> future = scheduledExecutorService.scheduleAtFixedRate(myTimerTask, timerDuration, breakDuration, TimeUnit.SECONDS);
+//        future.cancel(false);
 
 
 
