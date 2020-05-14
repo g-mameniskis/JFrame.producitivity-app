@@ -22,6 +22,8 @@ public class App
             @Override
             public void run() {
                 new MainFrame("SwingWorker Demo");
+                MainFrame mainFrame = new MainFrame("SwingWorker Demo");
+                mainFrame.number(25*SECONDS_IN_MINUTE);
             }
         });
 
