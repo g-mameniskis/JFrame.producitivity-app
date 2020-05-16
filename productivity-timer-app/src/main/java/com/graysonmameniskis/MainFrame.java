@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 
 public class MainFrame extends JFrame {
 
-    private JLabel countLabel1 = new JLabel("0");
+    private JLabel countLabel1 = new JLabel("0:00");
     private JLabel statusLabel = new JLabel("Task not completed.");
     private JButton startButton = new JButton("Start");
 
@@ -55,10 +55,6 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    public int number(int number) {
-        return number;
-    }
-
     private void start() {
 
         // Use SwingWorker<Void, Void> and return null from doInBackground if
@@ -76,21 +72,18 @@ public class MainFrame extends JFrame {
 
                 // Simulate useful work
 
-                    for (int j = 0; j < 30 * MINUTES_TO_SECONDS; j++) {
-                        for (int i = 0; i < 60; i++) {
-                            // counts each iteration with 1 second intervals
+                for (int i = 0; i < 25 * MINUTES_TO_SECONDS; i++) {
+                    // counts each iteration with 1 second intervals
+                    Thread.sleep(1000);
+                    System.out.println("Hello: " + i);
+                    // optional: use publish to send values to process(), which
+                    // you can then use to update the GUI.
+                    String date = String.format("%02d:00", i);
+                    // need to figure out how to format the count
+                    // problem: publish only accepts "chunks" as parameters
+                    publish(i);
+                }
 
-                            Thread.sleep(1000);
-                            System.out.println("Hello: " + i);
-
-                            // optional: use publish to send values to process(), which
-                            // you can then use to update the GUI.
-                            String date = String.format("%02d:00", i);
-                            // need to figure out how to format the count
-                            // problem: publish only accepts "chunks" as parameters
-                            publish(i);
-                        }
-                    }
 
                 return false;
             }
@@ -100,26 +93,10 @@ public class MainFrame extends JFrame {
             // Can safely update the GUI here.
             protected void process(List<Integer> chunks) {
                 Integer value = chunks.get(chunks.size() - 1);
-
-//                BigDecimal roundThreeCalc = new BigDecimal("0");
-//                BigDecimal var3600 = new BigDecimal("3600");
-//                BigDecimal myremainder = roundThreeCalc.remainder(var3600);
-//                BigDecimal seconds = new BigDecimal("0");
-//                BigDecimal var60 = new BigDecimal("60");
-//                seconds = (myremainder.remainder(var60));
-
-//                String date = String.format("%02d:00", seconds);
-
-                int count = 0;
-                for (int i = 0; i < chunks.size(); i++) {
-                    int newValue = chunks.get(i);
-                    if (newValue == 0) {
-                        count++;
-                    }
-                }
-
-                System.out.println(count);
-                countLabel1.setText("Current value: " + count + ":" + value);
+                countLabel1.setText((value / 60) +
+                                    " minutes " +
+                                    (value - (60 * (value / 60))) +
+                                    " seconds");
             }
 
             @Override
