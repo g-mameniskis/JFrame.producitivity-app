@@ -17,14 +17,17 @@ public class App
          * @param args
          */
 
-        SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
-                new MainFrame("SwingWorker Demo");
+            SwingUtilities.invokeLater(new Runnable() {
 
-            }
-        });
+
+                @Override
+                public void run() {
+                    new MainFrame("SwingWorker Demo");
+
+                }
+            });
+
 
 
 //        MyTimerTask myTimerTask = new MyTimerTask();
