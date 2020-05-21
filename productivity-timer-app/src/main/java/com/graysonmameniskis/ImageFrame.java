@@ -1,15 +1,30 @@
-//package com.graysonmameniskis;
-//
-//import javax.swing.*;
-//import java.awt.*;
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-//import java.util.concurrent.ExecutionException;
-//
-//// Ref: https://www.caveofprogramming.com/java-multithreading/java-multithreading-swing-swingworker-part-15.html
-//
-//public class ImageFrame extends JFrame {
-//
+package com.graysonmameniskis;
+
+import javax.swing.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
+// Ref: https://www.caveofprogramming.com/java-multithreading/java-multithreading-swing-swingworker-part-15.html
+
+public class ImageFrame extends JFrame {
+
+    MyTimerTask myTimerTask = new MyTimerTask();
+    private final ScheduledExecutorService scheduler =
+            Executors.newScheduledThreadPool(1);
+    private static final int SECONDS_IN_MINUTE = 60;
+
+    public void displayImage() {
+        final Runnable timer = () -> myTimerTask.createImageFrame();
+        final ScheduledFuture<?> timerHandle =
+                scheduler.scheduleWithFixedDelay(timer, 1, 5 * SECONDS_IN_MINUTE, TimeUnit.SECONDS);
+        //        }, 60 * 60, TimeUnit.SECONDS);
+        scheduler.schedule(() ->
+                { timerHandle.cancel(true); },
+                5 * SECONDS_IN_MINUTE, TimeUnit.SECONDS);
+    }
+
 //    private ImageFrame imageFrame = new ImageFrame();
 //    private ImageIcon imageIcon = new ImageIcon("timer.png");
 //    JLabel background = new JLabel("", imageIcon, JLabel.CENTER);
@@ -99,5 +114,5 @@
 //
 //        worker.execute();
 //    }
-//}
-//
+}
+

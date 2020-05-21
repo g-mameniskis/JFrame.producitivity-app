@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 
 public class MainFrame extends JFrame {
 
-    private JLabel countLabel1 = new JLabel("0:00");
+    private JLabel countLabel1 = new JLabel("00m:00s");
     private JLabel statusLabel = new JLabel("Task not completed.");
     private JButton startButton = new JButton("Start");
 
@@ -72,7 +72,7 @@ public class MainFrame extends JFrame {
 
                     // Simulate useful work
 
-                    for (int i = 0; i < 1 * MINUTES_TO_SECONDS; i++) {
+                    for (int i = 0; i < 2 * MINUTES_TO_SECONDS; i++) {
                         // counts each iteration with 1 second intervals
                         Thread.sleep(1000);
                         System.out.println("Hello: " + i);
@@ -91,10 +91,24 @@ public class MainFrame extends JFrame {
                 // Can safely update the GUI here.
                 protected void process(List<Integer> chunks) {
                     Integer value = chunks.get(chunks.size() - 1);
-                    countLabel1.setText((value / 60) +
-                            " minutes " +
-                            (value - (60 * (value / 60))) +
-                            " seconds");
+
+                    Integer valueToMinutes = value / 60;
+                    Integer valueToSeconds = value - (60 * (value / 60));
+
+                    String valueToStringMins = valueToMinutes.toString();
+                    String valueToStringSecs = valueToSeconds.toString();
+
+                    if (valueToMinutes < 10) {
+                        valueToStringMins = String.format("%02d", valueToMinutes);
+                    }
+                    if (valueToSeconds < 10) {
+                        valueToStringSecs = String.format("%02d", valueToSeconds);
+                    }
+
+                    countLabel1.setText((valueToStringMins) +
+                                        "m:" +
+                                        (valueToStringSecs) +
+                                        "s");
                 }
 
                 @Override
@@ -110,10 +124,9 @@ public class MainFrame extends JFrame {
                         // attempting to create a new JFrame upon completion
                         SwingUtilities.invokeLater(new Runnable() {
 
-
                             @Override
                             public void run() {
-                                new DemoFrame("Demo");
+                                new ImageFrame().displayImage();
 
                             }
                         });

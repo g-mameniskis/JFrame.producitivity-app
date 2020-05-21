@@ -71,7 +71,7 @@ public class DemoFrame extends JFrame {
                 for (int i = 0; i < 1 * MINUTES_TO_SECONDS; i++) {
                     // counts each iteration with 1 second intervals
                     Thread.sleep(1000);
-                    System.out.println("Hello: " + i);
+                    System.out.println("Hi: " + i);
                     // optional: use publish to send values to process(), which
                     // you can then use to update the GUI.
 
