@@ -72,7 +72,7 @@ public class MainFrame extends JFrame {
 
                     // Simulate useful work
 
-                    for (int i = 0; i < 2 * MINUTES_TO_SECONDS; i++) {
+                    for (int i = 0; i < 1 * MINUTES_TO_SECONDS; i++) {
                         // counts each iteration with 1 second intervals
                         Thread.sleep(1000);
                         System.out.println("Hello: " + i);
@@ -126,7 +126,11 @@ public class MainFrame extends JFrame {
 
                             @Override
                             public void run() {
-                                new ImageFrame().displayImage();
+                                try {
+                                    new DemoFrame("Demo").invoke();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
 
                             }
                         });

@@ -8,7 +8,9 @@ import java.util.concurrent.ExecutionException;
 
 public class DemoFrame extends JFrame {
 
-    private JLabel imageLabel = new JLabel("0:00");
+    private ImageIcon imageIcon = new ImageIcon("timer.png");
+    //JLabel background = new JLabel("", imageIcon, JLabel.CENTER);
+    JLabel background = new JLabel(imageIcon);
 
     private final int MINUTES_TO_SECONDS = 60;
 
@@ -25,7 +27,7 @@ public class DemoFrame extends JFrame {
         gc.gridy = 0;
         gc.weightx = 1;
         gc.weighty = 1;
-        add(imageLabel, gc);
+        add(background, gc);
 
 //        gc.gridx = 0;
 //        gc.gridy = 1;
@@ -45,10 +47,32 @@ public class DemoFrame extends JFrame {
 //            }
 //        });
 
-        setSize(200, 400);
+        setSize(400, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        pack();
+        //ImageIcon imageIcon = new ImageIcon("timer.png");
+        //background = new JLabel("", imageIcon, JLabel.CENTER);
+        //background.setBounds(0, 0, 300, 400);
+        add(background);
     }
+
+    public void invoke() throws InterruptedException {
+        for (int i = 0; i < 1 * MINUTES_TO_SECONDS; i++) {
+            // counts each iteration with 1 second intervals
+            Thread.sleep(1000);
+            System.out.println("Hi: " + i);
+            // optional: use publish to send values to process(), which
+            // you can then use to update the GUI.
+
+
+        }
+
+        setVisible(false); //you can't see me!
+        dispose();
+
+    }
+
 
     private void start() {
 
@@ -78,7 +102,8 @@ public class DemoFrame extends JFrame {
 
                 }
 
-
+                setVisible(false); //you can't see me!
+                dispose();
                 return false;
             }
 

@@ -1,6 +1,7 @@
 package com.graysonmameniskis;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -10,13 +11,39 @@ import java.util.concurrent.TimeUnit;
 
 public class ImageFrame extends JFrame {
 
+    private ImageIcon imageIcon = new ImageIcon("timer.png");
+    JLabel background = new JLabel("", imageIcon, JLabel.CENTER);
+
+    public ImageFrame() {
+        setLayout(new GridBagLayout());
+
+        GridBagConstraints gc = new GridBagConstraints();
+
+        gc.fill = GridBagConstraints.NONE;
+
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.weightx = 1;
+        gc.weighty = 1;
+        add(background, gc);
+
+        setSize(300, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+        ImageIcon imageIcon = new ImageIcon("timer.png");
+        background = new JLabel("", imageIcon, JLabel.CENTER);
+        background.setBounds(0, 0, 300, 400);
+        add(background);
+    }
+
+
     MyTimerTask myTimerTask = new MyTimerTask();
     private final ScheduledExecutorService scheduler =
             Executors.newScheduledThreadPool(1);
     private static final int SECONDS_IN_MINUTE = 60;
 
     public void displayImage() {
-        final Runnable timer = () -> myTimerTask.createImageFrame();
+        final Runnable timer = ImageFrame::new;
         final ScheduledFuture<?> timerHandle =
                 scheduler.scheduleWithFixedDelay(timer, 1, 5 * SECONDS_IN_MINUTE, TimeUnit.SECONDS);
         //        }, 60 * 60, TimeUnit.SECONDS);
